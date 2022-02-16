@@ -11,7 +11,7 @@
                   <div class="create-item">
                       <div class="create-count">
                           <b>
-                              较昨日<em style="color: rgb(247, 76, 49)">{{data.yesterday}}</em>
+                              较昨日<em style="color: rgb(247, 76, 49)"> {{data.yesterday > 0 ? '+' + data.yesterday : data.yesterday}}</em>
                           </b>
                       </div>
                       <strong style="color: rgb(247,76,49)">{{data.now}}</strong>
@@ -75,9 +75,21 @@ export default {
       ]
     }
   },
-  // mounted () {
-  //   this.covidList[0].yesterday = this.caseNumData2.currentConfirmedIncr
-  // },
+  updated () {
+    // 刷新页面后需要再次赋值给data
+    this.covidList[0].yesterday = this.caseNumData2.currentConfirmedIncr
+    this.covidList[1].yesterday = this.caseNumData2.confirmedIncr
+    this.covidList[2].yesterday = this.caseNumData2.suspectedIncr
+    this.covidList[3].yesterday = this.caseNumData2.curedIncr
+    this.covidList[4].yesterday = this.caseNumData2.deadIncr
+    this.covidList[5].yesterday = this.caseNumData2.seriousIncr
+    this.covidList[0].now = this.caseNumData1.currentConfirmedCount
+    this.covidList[1].now = this.caseNumData1.confirmedCount
+    this.covidList[2].now = this.caseNumData1.suspectedCount
+    this.covidList[3].now = this.caseNumData1.curedCount
+    this.covidList[4].now = this.caseNumData1.deadCount
+    this.covidList[5].now = this.caseNumData1.seriousCount
+  },
   methods: {
     formatData (time) {
       const date = new Date(time)

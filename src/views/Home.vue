@@ -4,6 +4,7 @@
     <!-- 父传子 -->
     <covid-19-info :covid19Info='covid19Info'/>
     <case-num :caseNumData1='caseNumData1' :caseNumData2='caseNumData2'/>
+    <china-map />
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import api from '@/api/index.js'
 import Header from '@/components/Header'
 import Covid19Info from '../components/Covid19Info.vue'
 import CaseNum from '@/components/CaseNum.vue'
+import ChinaMap from '@/components/chinaMap'
 
 export default {
   name: 'Home',
@@ -48,7 +50,8 @@ export default {
   components: {
     Header,
     Covid19Info,
-    CaseNum
+    CaseNum,
+    ChinaMap
   },
   mounted () {
     api.getNcov({

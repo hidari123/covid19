@@ -2,7 +2,8 @@ import request from '../utils/request'
 
 const base = {
   baseUrl: 'http://iwenwiki.com/wapicovid19',
-  ncov: '/ncov.php'
+  ncov: '/ncov.php',
+  ncovabroad: '/foreign.php'
 }
 
 const api = {
@@ -10,6 +11,11 @@ const api = {
   getNcov (params) {
     return request.get(base.baseUrl + base.ncov, {
       params
+    })
+  },
+  // 世界疫情数据
+  getNcovAbroad () {
+    return request.get(base.baseUrl + base.ncovabroad, {
     })
   }
 }

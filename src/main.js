@@ -5,6 +5,7 @@ import Echarts from './plugins/echarts'
 import axios from 'axios' // 安装axios后引入
 import Tabs from './components/tabs'
 
+import '@/assets/world'
 import './assets/css/commen.css'
 
 Vue.use(Tabs)

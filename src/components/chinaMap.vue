@@ -16,6 +16,7 @@
 
 <script>
 // import api from '@/api/'
+import axios from 'axios'
 
 export default {
   name: 'ChinaMap',
@@ -25,27 +26,58 @@ export default {
     }
   },
   mounted () {
-    // 省市疫情数据
-    this.$axios.get('/area.json').then(res => {
+    function NcovCity () {
+      return axios.get('/area.json')
+    }
+    function ncovAbroad () {
+      return axios.get('http://iwenwiki.com/wapicovid19/foreign.php')
+    }
+    // 合并多个并发请求
+    axios.all([NcovCity(), ncovAbroad()]).then(axios.spread((NcovCity, ncovAbroad) => {
+      // 两个请求现在都执行完成
       const allCitys = []
       //  { name: '内蒙古', value: 10, itemStyle: { normal: { areaColor: '#fff' } } }
-      for (let i = 0; i < res.data.length; i++) {
+      for (let i = 0; i < NcovCity.data.length; i++) {
         const temp = {
-          name: res.data[i].provinceShortName,
-          value: res.data[i].curedCount
-          // 配置颜色值 后用 eachrts 映射代替
-          // itemStyle: {
-          //   normal: {
-          //     areaColor: this.setColor(res.data[i].confirmedCount)
-          //   }
-          // }
+          name: NcovCity.data[i].provinceShortName,
+          value: NcovCity.data[i].curedCount
         }
         allCitys.push(temp)
       }
+      const worlds = []
+      for (let i = 0; i < ncovAbroad.data.retdata.length; i++) {
+        const temp = {
+          name: ncovAbroad.data.retdata[i].xArea,
+          value: ncovAbroad.data.retdata[i].curConfirm
+        }
+        worlds.push(temp)
+      }
       this.$charts.chinaMap('chinaMap', allCitys)
-    }).catch(error => {
-      console.log(error)
-    })
+      this.$charts.worldMap('worldMap', worlds)
+    }))
+
+    // 省市疫情数据
+    // this.$axios.get('/area.json').then(res => {
+    //   const allCitys = []
+    //   //  { name: '内蒙古', value: 10, itemStyle: { normal: { areaColor: '#fff' } } }
+    //   for (let i = 0; i < res.data.length; i++) {
+    //     const temp = {
+    //       name: res.data[i].provinceShortName,
+    //       value: res.data[i].curedCount
+    //       // 配置颜色值 后用 eachrts 映射代替
+    //       // itemStyle: {
+    //       //   normal: {
+    //       //     areaColor: this.setColor(res.data[i].confirmedCount)
+    //       //   }
+    //       // }
+    //     }
+    //     allCitys.push(temp)
+    //   }
+    //   this.$charts.chinaMap('chinaMap', allCitys)
+    //   this.$charts.worldMap('worldMap')
+    // }).catch(error => {
+    //   console.log(error)
+    // })
   },
   methods: {
     getIndex (index) {
@@ -80,9 +112,13 @@ export default {
 </script>
 
 <style scoped>
-#chinaMap, #worldMap {
+#chinaMap {
   height: 400px;
   width: 100%;
+}
+#worldMap {
+  height: 400px;
+  width: 3.75rem;
 }
 .title {
   border-top: 0.005rem solid #ebebeb;

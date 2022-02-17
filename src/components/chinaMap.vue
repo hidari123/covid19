@@ -1,7 +1,16 @@
 <template>
   <div class="map">
     <p class="title"><i></i> 疫情地图</p>
-    <div id="main"></div>
+    <Tabs :currentIndex='currentIndex' @onIndex='getIndex'>
+      <!-- Tab 属于 Tabs 的 插槽 用slot -->
+      <!-- label 是 Tab 的一个属性 通过props 读取 -->
+      <Tab index='1' label='国内疫情'>
+          <div id="chinaMap"></div>
+      </Tab>
+      <Tab index='2' label='国外疫情'>
+        <div id='worldMap'>国外疫情</div>
+      </Tab>
+    </Tabs>
   </div>
 </template>
 
@@ -10,6 +19,11 @@
 
 export default {
   name: 'ChinaMap',
+  data () {
+    return {
+      currentIndex: '1'
+    }
+  },
   mounted () {
     // 省市疫情数据
     this.$axios.get('/area.json').then(res => {
@@ -28,12 +42,15 @@ export default {
         }
         allCitys.push(temp)
       }
-      this.$charts.chinaMap('main', allCitys)
+      this.$charts.chinaMap('chinaMap', allCitys)
     }).catch(error => {
       console.log(error)
     })
   },
   methods: {
+    getIndex (index) {
+      this.currentIndex = index
+    }
     // 配置颜色值
     // setColor (value) {
     //   let currentColor = ''
@@ -63,7 +80,7 @@ export default {
 </script>
 
 <style scoped>
-#main {
+#chinaMap, #worldMap {
   height: 400px;
   width: 100%;
 }

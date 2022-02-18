@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import City from '../views/City.vue'
+import Spring from '../views/SpringView.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,12 @@ const routes = [
     path: '/city/:city',
     name: 'City',
     component: City,
+    props: true
+  },
+  {
+    path: '/spring/:cities',
+    name: 'spring',
+    component: Spring,
     props: true
   }
 ]

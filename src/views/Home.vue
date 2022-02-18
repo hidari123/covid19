@@ -6,6 +6,7 @@
     <case-num :caseNumData1='caseNumData1' :caseNumData2='caseNumData2'/>
     <china-map />
     <my-swiper />
+    <spring-travel />
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import Covid19Info from '../components/Covid19Info.vue'
 import CaseNum from '@/components/CaseNum.vue'
 import ChinaMap from '@/components/chinaMap'
 import MySwiper from '@/components/mySwiper'
+import SpringTravel from '@/components/SpringTravel'
 
 export default {
   name: 'Home',
@@ -54,7 +56,8 @@ export default {
     Covid19Info,
     CaseNum,
     ChinaMap,
-    MySwiper
+    MySwiper,
+    SpringTravel
   },
   mounted () {
     api.getNcov({

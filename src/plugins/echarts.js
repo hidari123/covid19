@@ -185,6 +185,75 @@ const install = (Vue) => {
               ]
             }
             myChart.setOption(option)
+          },
+          // 省市地图配置
+          provinceMap: (id, cityName, data) => {
+            console.log(data)
+            const dom = document.getElementById(id)
+            const myChart = echarts.init(dom)
+            const option = {
+              // 提示信息
+              tooltip: {
+                triggerOn: 'mousemove', // 默认 点击触发
+                enterable: true, // 是否允许点击 默认 允许
+                formatter (data) {
+                  return `<div>
+                            <p>${data.name}</p>
+                            <p>累计确诊：${data.value}</p>
+                          </div>`
+                }
+              },
+              visualMap: [{ // 映射 颜色值
+                orient: 'vertical', // 分段方向：horizontal 水平 vertical 垂直
+                type: 'piecewise', // 分段
+                pieces: [ // 配置颜色区间
+                  { min: 0, max: 0, color: '#fff' },
+                  { min: 1, max: 10, color: '#FDFDCF' },
+                  { min: 10, max: 100, color: '#FE9E83' },
+                  { min: 100, max: 500, color: '#E55A4E' },
+                  { min: 500, max: 100000, color: '#4F070D' }
+                ]
+              }],
+              series: [
+                {
+                  name: '市',
+                  type: 'map', // 配置图表类型
+                  map: cityName, // 必须写中文
+                  roam: false, // 是否允许自动缩放 false 不允许
+                  zoom: 1.2, // 地图缩放比例
+                  label: { // 配置字体
+                    normal: {
+                      show: true, // 是否显示字体
+                      textStyle: {
+                        fontSize: 8
+                        // color: '#1DE9B6'
+                      }
+                    }
+                    // emphasis: {
+                    //   textStyle: {
+                    //     color: 'rgb(183, 185, 14)'
+                    //   }
+                    // }
+                  },
+                  itemStyle: { // 配置地图样式
+                    normal: {
+                      areaColor: 'rgba(0,255,236,0)',
+                      borderColor: 'rgba(0,0,0,0.2)'
+                    },
+                    emphasis: { // 配置阴影效果
+                      areaColor: 'rgba(255,180,0,0.8)',
+                      shadowOffsetX: 0,
+                      shadowOffsetY: 0,
+                      shadowBlur: 20, // 模糊程度
+                      borderWidth: 0,
+                      shadowColor: 'rgba(0,0,0,0.5)'
+                    }
+                  },
+                  data: data
+                }
+              ]
+            }
+            myChart.setOption(option)
           }
         }
       }

@@ -35,14 +35,14 @@ export default {
     // 合并多个并发请求
     axios.all([NcovCity(), ncovAbroad()]).then(axios.spread((NcovCity, ncovAbroad) => {
       // 两个请求现在都执行完成
-      const allCitys = []
+      const allCities = []
       //  { name: '内蒙古', value: 10, itemStyle: { normal: { areaColor: '#fff' } } }
       for (let i = 0; i < NcovCity.data.length; i++) {
         const temp = {
           name: NcovCity.data[i].provinceShortName,
           value: NcovCity.data[i].curedCount
         }
-        allCitys.push(temp)
+        allCities.push(temp)
       }
       const worlds = []
       for (let i = 0; i < ncovAbroad.data.retdata.length; i++) {
@@ -52,7 +52,7 @@ export default {
         }
         worlds.push(temp)
       }
-      this.$charts.chinaMap('chinaMap', allCitys)
+      this.$charts.chinaMap('chinaMap', allCities)
       this.$charts.worldMap('worldMap', worlds)
     }))
 

@@ -22,13 +22,16 @@ const install = (Vue) => {
             const option = {
               // 提示信息
               tooltip: {
-                triggerOn: 'mousemove', // 默认 点击触发
-                enterable: true, // 是否允许点击 默认 允许
+                triggerOn: 'mousemove', // 事件类型：默认click点击触发 mousemove鼠标移动
+                enterable: true, // 是否允许点击 默认 允许 如果添加链接 需要为 true
                 formatter (data) {
-                  return `<div>
-                            <p>${data.seriesName}：${data.name}</p>
-                            <p>累计治愈：${data.value}</p>
-                          </div>`
+                  return `
+                    <a href='/#/city/${data.name}'>
+                      <div>
+                        <p>${data.seriesName}：${data.name}</p>
+                        <p>累计治愈：${data.value}</p>
+                      </div>
+                    </a>`
                 }
               },
               visualMap: [{ // 映射 颜色值

@@ -5,6 +5,7 @@
     <covid-19-info :covid19Info='covid19Info'/>
     <case-num :caseNumData1='caseNumData1' :caseNumData2='caseNumData2'/>
     <china-map />
+    <my-swiper />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import Header from '@/components/Header'
 import Covid19Info from '../components/Covid19Info.vue'
 import CaseNum from '@/components/CaseNum.vue'
 import ChinaMap from '@/components/chinaMap'
+import MySwiper from '@/components/mySwiper'
 
 export default {
   name: 'Home',
@@ -51,7 +53,8 @@ export default {
     Header,
     Covid19Info,
     CaseNum,
-    ChinaMap
+    ChinaMap,
+    MySwiper
   },
   mounted () {
     api.getNcov({

@@ -1,18 +1,23 @@
 # covid19
 
-## Project setup
+## 跨域问题
 ```
-npm install
+1 开发环境
+  proxy 打包后无法使用
+2 生产环境
+  cors 主要
+  jsonp
 ```
 
-### Compiles and hot-reloads for development
+### 打包环境预览
 ```
-npm run serve
+npm install -g serve
+serve -s dist
 ```
 
-### Compiles and minifies for production
-```
-npm run build
+### 路径问题
+```js
+
 ```
 
 ### Lints and fixes files

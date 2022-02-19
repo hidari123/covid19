@@ -43,7 +43,9 @@ import '@/assets/chinaMapJs/yunnan'
 import '@/assets/chinaMapJs/zhejiang'
 
 import './assets/css/commen.css'
+import Notifications from 'vue-notification'
 
+Vue.use(Notifications)
 Vue.use(Tabs)
 Vue.use(Echarts)
 

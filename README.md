@@ -17,16 +17,9 @@ serve -s dist
 
 ### 路径问题
 ```js
-
+  // 对比是不是生产环境 如果不是根路径访问 需要设置
+publicPath: process.env.NODE_ENV === 'production' ? '/production-sub-path/' : '/'
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 疫情详细数据
 地址:http://iwenwiki.com/wapicovid19/ncov.php?key=62e34ad34025d5d5127135efa58d4ca8
